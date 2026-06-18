@@ -33,7 +33,7 @@ app.post('/api/chat', async (req, res) => {
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022', // 使用 Claude 3.5 Sonnet 模型
+        model: 'claude-3-5-sonnet-20241022', 
         max_tokens: 1024,
         messages: [{ role: 'user', content: message }]
       })
