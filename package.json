@@ -1,0 +1,12 @@
+{
+  "name": "doki-backend",
+  "version": "1.0.0",
+  "description": "萌萌DOKI的后端大管家",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
