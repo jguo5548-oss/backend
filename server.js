@@ -32,7 +32,7 @@ app.post('/api/chat', async (req, res) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-  model: 'claude-opus-4-6',
+  model: '[杨枝甘露]claude-opus-4-5',
   messages: [
           // 在系統提示詞中賦予大管家專屬暱稱，讓它用簡體中文回覆
           { 
