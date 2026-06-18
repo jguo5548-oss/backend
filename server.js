@@ -32,9 +32,8 @@ app.post('/api/chat', async (req, res) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        // 設定模型名稱為你指定的版本
-        model: 'model: 'claude-opus-4-6',
-        messages: [
+  model: 'claude-opus-4-6',
+  messages: [
           // 在系統提示詞中賦予大管家專屬暱稱，讓它用簡體中文回覆
           { 
             role: 'system', 
