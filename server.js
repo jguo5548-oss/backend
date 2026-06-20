@@ -63,7 +63,7 @@ app.post('/api/chat', async (req, res) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-       model: 'claude-opus-4-6',
+       model: '[栗子泥]deepseek-v4-flash',
         messages: [
           { role: 'system', content: config.system_prompt },
           ...conversationHistory,
