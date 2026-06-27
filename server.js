@@ -93,39 +93,26 @@ app.post('/api/chat', async (req, res) => {
 
 app.post('/api/tts', async (req, res) => {
   const { text, persona } = req.body;
-  const config = personas[persona] || personas['sho酱'];
-
+  
+  const voiceMap = {
+    'sho酱': 'ja-JP-NanamiNeural',
+    'en硕': 'ko-KR-SunHiNeural'
+  };
+  
+  const voice = voiceMap[persona] || 'ja-JP-NanamiNeural';
+  
   try {
-    const response = await fetch(
-      `https://api.minimax.chat/v1/t2a_v2?GroupId=523239324339093506`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${process.env.MINIMAX_API_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          model: 'speech-02-hd',
-          text: text,
-          voice_setting: { voice_id: config.voice_id, speed: 0.9, vol: 1, pitch: 0 },
-          audio_setting: { format: 'mp3', sample_rate: 32000 }
-        })
-      }
-    );
-
-    const data = await response.json();
-
-    if (data.data && data.data.audio) {
-      const audioBuffer = Buffer.from(data.data.audio, 'hex');
-      res.set('Content-Type', 'audio/mpeg');
-      res.send(audioBuffer);
-    } else {
-      res.status(500).json({ error: 'TTS失败', details: data });
-    }
+    const { MsEdgeTTS, OUTPUT_FORMAT } = require('msedge-tts');
+    const tts = new MsEdgeTTS();
+    await tts.setMetadata(voice, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
+    const readable = tts.toStream(text);
+    res.set('Content-Type', 'audio/mpeg');
+    readable.pipe(res);
   } catch (error) {
     res.status(500).json({ error: '语音生成出错', details: error.message });
   }
 });
+
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, '0.0.0.0', () => {
