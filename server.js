@@ -63,7 +63,7 @@ app.post('/api/chat', async (req, res) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-       model: '[脆皮卷]claude-opus-4-5-20251101-thinking',
+       model: '[脆卷-kiro-0.04]claude-sonnet-4-5-20250929',
         messages: [
           { role: 'system', content: config.system_prompt },
           ...conversationHistory,
